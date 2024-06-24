@@ -2,12 +2,16 @@
   "name": "abn",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:test": "npx playwright test tests/login.spec.ts",
+    "test:visual:playwright": "npx playwright test tests/visual-test.spec.test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@applitools/eyes-playwright": "^1.28.1",
     "@playwright/test": "^1.44.1",
     "@types/node": "^20.14.8"
   }

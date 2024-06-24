@@ -27,12 +27,14 @@ export class LoginPage {
     email_field: Locator;
     password_field: Locator;
     readonly loginButton: Locator;
+    readonly pageTitle: RegExp;
 
     constructor(page: Page){
         this.page = page;
         this.email_field = page.locator('#email');
         this.password_field = page.locator('#password');
         this.loginButton = page.getByRole('button');
+        this.pageTitle = /Single Page Application/;
     }
 
     async inputValidCredentials(){
@@ -54,29 +56,18 @@ export class LoginPage {
         await this.email_field.fill(username);
         await this.password_field.fill(password);
         await this.loginButton.click();
-        };
-
-
+        }
     }
 
-    async inputEmail(){
-        await this.email_field.fill(validCredentials.forEach.name);
+    async assertPageTitle() {
+        await expect(this.page).toHaveTitle(this.pageTitle);
     }
 
-    //async inputPassword(){
-    //    await this.password_field.fill();
-    //}
-
-    //async clickLogin(){
-    //    await this.loginButton.click();
-    //}
-
-    async login(){
-        await this.inputEmail();
-        //await this.inputPassword();
-        //await this.clickLogin();
+    async loginSingleUser(){
+        await this.email_field.fill('biancunha@gmail.com');
+        await this.password_field.fill('123456');
+        await this.loginButton.click();
     }
-
 }
 
 export default LoginPage;
