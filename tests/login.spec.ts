@@ -11,9 +11,10 @@ test.beforeEach(async({page}) => {
   await page.goto('file://C:/Users/alexa/Desktop/application/index.html');
   loginPage = new LoginPage(page);
   await loginPage.assertPageTitle();
+  landingPage = new LandingPage(page);
 });
 
-//Logging in with valid credentials. Expect to be able to continue to the next page
+//Logging in with 3 different valid credentials. Expect to be able to continue to the next page
 test('valid credentials', async ({page}) => {
   await loginPage.inputValidCredentials();
   landingPage = new LandingPage(page)
@@ -21,10 +22,34 @@ test('valid credentials', async ({page}) => {
 }
 )
 
-//Logging in with invalid credentials. Expected to not be able to continue
+//Logging in with 3 different invalid credentials. Expected to not be able to continue. Would preferably
+//see a userfull error message
 test('invalid credentials', async ({page}) => {
   await loginPage.inputInvalidCredentials();
-  await expect(page.locator('#content')).not.toBeVisible();
+  await expect(landingPage.content).not.toBeVisible();
+}
+)
+
+//These next 3 test cases are not yet part of the application. Maybe these could be negotiated
+//during a refinement session. These will fail for now, unless the last assertion will be disabled.
+test('missing username', async({page}) => {
+  await loginPage.loginMissingUsername();
+  await expect(landingPage.content).not.toBeVisible();
+  await expect(loginPage.errorMessage).toHaveText(loginPage.missingUsernameMessage);
+}
+)
+
+test('missing password', async({page}) => {
+  await loginPage.loginMissingPassword();
+  await expect(landingPage.content).not.toBeVisible();
+  await expect(loginPage.errorMessage).toHaveText(loginPage.missingPasswordMessage);
+}
+)
+
+test('missing username and password', async({page}) => {
+  await loginPage.loginMissingUsernameAndPassword();
+  await expect(landingPage.content).not.toBeVisible();
+  await expect(loginPage.errorMessage).toHaveText(loginPage.missingUsernameAndPasswordMessage);
 }
 )
 

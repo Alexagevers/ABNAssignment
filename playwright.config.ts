@@ -11,6 +11,7 @@ require('dotenv').config();
  */
 export default defineConfig({
   testDir: './tests',
+  snapshotDir: './tests',
 
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -22,7 +23,7 @@ export default defineConfig({
   retries: 2,
 
   /* Opt out of parallel tests on CI. */
-  workers: 3,
+  workers: 1,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html', {open: 'always', 'printSteps': true }]],

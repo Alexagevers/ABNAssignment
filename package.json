@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test:test": "npx playwright test tests/login.spec.ts",
-    "test:visual:playwright": "npx playwright test tests/visual-test.spec.test"
+    "test:visual:playwright": "npx playwright test tests/visual-test.spec.ts"
   },
   "keywords": [],
   "author": "",

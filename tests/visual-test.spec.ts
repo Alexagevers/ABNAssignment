@@ -38,7 +38,7 @@ test.beforeAll(async() => {
     Config = new Configuration();
     Config.setBatch(Batch);
     Config.addBrowsers(
-        {name: BrowserType.EDGE_CHROMIUM, width: 800, height: 600},
+        //{name: BrowserType.EDGE_CHROMIUM, width: 800, height: 600},
         {name: BrowserType.CHROME, width: 800, height: 600},
         {name: BrowserType.FIREFOX, width: 1600, height: 1200},
         {name: BrowserType.SAFARI, width: 1024, height: 768},
@@ -70,7 +70,7 @@ test.afterEach(async() => {
 
 test.afterAll(async() => {
     const results = await Runner.getAllTestResults();
-    console.log('Visual test results', results);
+    console.log('Visual test results', results);   
 });
 
 async function login(page: Page){
@@ -85,10 +85,12 @@ test.describe('ABN AMRO', () => {
     //from Classic runner for both tests
     test('login page', async() => {
         await loginPage.assertPageTitle();
+        await loginPage.assertAutomationText();
         await eyes.check('Login Page', Target.window().fully());
     });
 
-    //Checking landing page on different browsers, OS and devices with visual AI
+    //Checking landing page on different browsers, OS and devices with visual AI. Also to check 
+    //login functionality on those different platforms
     test('landing page', async({page}) => {
         await login(page);
         landingPage.checkContent();
